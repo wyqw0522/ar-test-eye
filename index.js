@@ -20,6 +20,7 @@ let ar_id;
 let flag = true; // 游戏是否结束
 let ar_act
 let mp = new Map()
+let score = 0
 
 mp.set(0, 3);
 mp.set(1, 1);
@@ -173,6 +174,10 @@ async function predict() {
     predicted = true;
     if (ar_id === ar_act) {
       console.log("预测正确");
+      const corn_btn = document.getElementById("score")
+      score++;
+      corn_btn.innerHTML = score
+
     } else {
       console.log("预测错误")
       flag = false;
@@ -235,7 +240,8 @@ function play() {
     if (t = 0 || flag === false) {
       clearInterval(x);
       flag = true  // 否则第二次点击 play 会出现错误，从而没有读秒
-      alert("gameover");
+      alert("gameover\n 您的分数为 " + score + " 分");
+      score = 0
       predicted = false;
       isPredicting = false
       return
