@@ -18,9 +18,9 @@ let truncatedMobileNet;
 let model;
 let ar_id;
 let flag = true; // 游戏是否结束
-let ar_act
-let mp = new Map()
-let score = 0
+let ar_act;
+let mp = new Map();
+let score = 0;
 
 mp.set(0, 3);
 mp.set(1, 1);
@@ -147,7 +147,7 @@ let isPredicting = false;
 
 async function predict() {
   ui.isPredicting();
-  console.log("进入预测")
+  console.log("进入预测");
   if (isPredicting) {
     // Capture the frame from the webcam.
     // 从网络摄像头捕获帧。
@@ -168,18 +168,17 @@ async function predict() {
     // 以最大概率返回索引。这个号码对应 指向模型认为是给定输入的最可能的类。
     const predictedClass = predictions.as1D().argMax();
     const classId = (await predictedClass.data())[0];
-    console.log("预测的原结果是", classId)
+    // console.log("预测的原结果是", classId);
     ar_id = mp.get(classId);
-    console.log("预测的结果是", ar_id)
+    console.log("预测的结果是", ar_id);
     predicted = true;
     if (ar_id === ar_act) {
       console.log("预测正确");
-      const corn_btn = document.getElementById("score")
+      const corn_btn = document.getElementById("score");
       score++;
-      corn_btn.innerHTML = score
-
+      corn_btn.innerHTML = score;
     } else {
-      console.log("预测错误")
+      console.log("预测错误");
       flag = false;
     }
 
@@ -188,7 +187,6 @@ async function predict() {
     // ui.predictClass(classId);
     await tf.nextFrame();
   }
-  
 }
 
 // Captures a frame from the webcam and normalizes it between -1 and 1.
@@ -220,32 +218,33 @@ document.getElementById("predict").addEventListener("click", () => {
 });
 
 function play() {
-  const temp = ar.change()
+  const temp = ar.change();
 
-  console.log("真实值：", temp)
-  ar_act = temp
-  isPredicting = true
-  if (isPredicting){
+  console.log("真实值：", temp);
+  console.log("等待五秒钟");
+  ar_act = temp;
+  isPredicting = true;
+  if (isPredicting) {
     let y = setTimeout(() => {
-      console.log("等待两秒钟")
-      predict()  
-      clearTimeout(y)
-    },2000)
-    
+      predict();
+      clearTimeout(y);
+    }, 5000);
   }
-  
-  let t = 6
+
+  let t = 6;
   let x = setInterval(function () {
     t--;
-    if (t = 0 || flag === false) {
+    if (t === 0 && flag === false) {
       clearInterval(x);
-      flag = true  // 否则第二次点击 play 会出现错误，从而没有读秒
+      flag = true; // 否则第二次点击 play 会出现错误，从而没有读秒
       alert("gameover\n 您的分数为 " + score + " 分");
-      score = 0
+      score = 0;
       predicted = false;
-      isPredicting = false
-      return
-    } else {
+      isPredicting = false;
+      return;
+    } else if (t === 0 && flag === true){
+
+    } else{
       console.log("还有" + t + "秒");
     }
     if (flag === true && predicted) {
