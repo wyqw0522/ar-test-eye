@@ -25,7 +25,7 @@ container = new createjs.Container();
 stage.addChild(container);
 // 设置container在中心
 container.x = -50;
-container.y = 75;
+container.y = 25;
 
 var content = new createjs.DOMElement(node);
 container.addChild(content);
