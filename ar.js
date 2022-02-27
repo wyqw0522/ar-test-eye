@@ -1,25 +1,29 @@
 import createjs from "createjs-npm";
 
+// 获取 canvas 元素
 let canvas;
+// 舞台
 let stage;
-// 定义 4 个方向
+// 定义 3 个旋转方向
 let rotations = [90, 180, 270];
 // 保存当前方向索引
 let zoom = 0;
-let flag = true;
-let hasClick = false;
+// 容器
 let container;
-
+// 获取 视力图 元素
 let node = document.getElementById("ar");
-node.style.width = 100 * (zoom + 1) + "px";
-
-node.style.height = 100 * (zoom + 1) + "px";
+// 设置 视力图 宽度
+node.style.width = "100px";
+// 设置 视力图 高度
+node.style.height = "100px";
 
 canvas = document.getElementById("gameView");
 stage = new createjs.Stage(canvas);
 container = new createjs.Container();
 
+// 容器加入舞台
 stage.addChild(container);
+// 设置container在中心
 container.x = -50;
 container.y = 75;
 
@@ -35,40 +39,20 @@ content.regX = 50;
 content.regY = 50;
 
 export function change() {
-  let temp1 = Math.floor(Math.random() * 3);
-  let temp = rotations[temp1];
+  let random1 = Math.floor(Math.random() * 3); // [0, 2]
+  let rotationAngle = rotations[random1]; // 选中的旋转角度
 
-  zoom = zoom + temp1 < 3 ? zoom + temp1 + 1 : zoom + temp1 - 3;
-  
-  content.rotation = content.rotation + temp;
+  zoom = zoom + random1 < 3 ? zoom + random1 + 1 : zoom + random1 - 3;
+
+  content.rotation = content.rotation + rotationAngle;
   // [1,10]
-  let temp2 = Math.random() * 10 + 1; // [1, 11)
-  while (temp2 > 10) {
-    temp2 = Math.random() * 10 + 1;
+  let random2 = Math.random() * 10 + 1; // [1, 11) 放大倍数
+  while (random2 > 10) {
+    random2 = Math.random() * 10 + 1;
   }
-  let temp3 = temp2 * 0.1;
-  content.scaleX = temp3;
-  content.scaleY = temp3;
+  let minification = random2 * 0.1;
+  content.scaleX = minification; // 缩放倍数
+  content.scaleY = minification;
   stage.update();
   return zoom;
-}
-
-export function func() {
-  // 改变图像
-  change();
-  let t = 6;
-  let x = setInterval(function () {
-    t--;
-    if (t < 0 || flag === false) {
-      clearInterval(x);
-      alert("gameover");
-    } else {
-      console.log("还有" + t + "秒");
-    }
-    if (flag === true && hasClick) {
-      clearInterval(x);
-      hasClick = false;
-      func();
-    }
-  }, 1000);
 }
