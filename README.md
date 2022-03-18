@@ -12,3 +12,7 @@ npm run build
 ## note
 
 算法层使用了 google mobilenet 的预训练模型
+
+## preview
+
+[https://wyqw0522.github.io/ar-test-eye/](https://wyqw0522.github.io/ar-test-eye/)
