@@ -4,10 +4,6 @@ import * as tf from '@tensorflow/tfjs';
 // 控制装置
 const CONTROLS = ['up', 'down', 'left', 'right'];  
 
-// 控制编号
-const CONTROL_CODES = [38, 40, 37, 39];
-
-
 export function init() {
   // 得到控制面板，初始化时让它隐藏
   document.getElementById('controller').style.display = '';
@@ -16,7 +12,6 @@ export function init() {
 
 const trainStatusElement = document.getElementById('train-status');
 
-// Set hyper params from UI values.
 // 从UI值设置超参数。
 const learningRateElement = document.getElementById('learningRate');
 export const getLearningRate = () => +learningRateElement.value;
@@ -58,7 +53,6 @@ const thumbDisplayed = {};
 async function handler(label) {
   mouseDown = true;
   const className = CONTROLS[label];
-  const button = document.getElementById(className);
   const total = document.getElementById(className + '-total');
   while (mouseDown) {
     addExampleHandler(label);

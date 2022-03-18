@@ -54,9 +54,8 @@ ui.setExampleHandler(async (label) => {
   img.dispose();
 });
 
-/**
- * 设置和训练分类器。
- */
+// 设置和训练分类器。
+
 async function train() {
   if (controllerDataset.xs == null) {
     throw new Error("Add some examples before training!");
@@ -136,7 +135,6 @@ async function predict() {
     // 以最大概率返回索引。这个号码对应 指向模型认为是给定输入的最可能的类。
     const predictedClass = predictions.as1D().argMax();
     const classId = (await predictedClass.data())[0];
-    // console.log("预测的原结果是", classId);
     ar_id = mp.get(classId);
     console.log("预测的结果是", ar_id);
     predicted = true;
@@ -240,5 +238,5 @@ async function init() {
   screenShot.dispose();
 }
 
-// 译文: 初始化应用程序。
+// 初始化应用程序。
 init();

@@ -32,8 +32,10 @@ container.addChild(content);
 stage.update();
 
 // 将容器shape向右向下移动50，此时注册点也移动到了标准坐标系(50, -50)处
+// 位置
 content.x = 50;
 content.y = 50;
+// 显示对象的注册点的左偏移量
 // 通过regX再给容器移动到原来的位置，此时“身体“进行了移动，但是注册点并没有移动
 content.regX = 50;
 content.regY = 50;
